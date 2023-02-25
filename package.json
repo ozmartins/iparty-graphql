@@ -2,6 +2,26 @@
   "dependencies": {
     "@apollo/server": "^4.4.0",
     "apollo-datasource-rest": "^3.7.0",
-    "graphql": "^16.6.0"
-  }
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "nodemon": "^2.0.20"
+  },
+  "name": "iparty-graphql",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozmartins/iparty-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ozmartins/iparty-graphql/issues"
+  },
+  "homepage": "https://github.com/ozmartins/iparty-graphql#readme"
 }

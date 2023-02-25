@@ -1,6 +1,8 @@
 const resolvers = {
-    Query: (_, __, { dataSources }) => {
-        return dataSources.cityAPI.getAll();
+    Query: {
+        cities: (_, __, { dataSources }) => {
+            return dataSources.cityAPI.getAll();
+        }
     }
 }
 

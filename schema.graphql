@@ -1,17 +1,11 @@
-const typeDefs = `#graphql
-    scalar GUID;
-    
-    type City {
-        id: ID!
-        version: GUID!
-        ibgeNumber: Int!
-        name: String!
-        state: Int!
-    }
+type City {
+    id: ID!
+    version: String!
+    ibgeNumber: Int!
+    name: String!
+    state: Int!
+}
 
-    type Query {
-        cities: [City]!
-    }
-`;
-
-module.exports = typeDefs;
+type Query {
+    cities: [City]!
+}
