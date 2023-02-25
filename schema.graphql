@@ -1,0 +1,15 @@
+const typeDefs = `#graphql
+    scalar GUID;
+    
+    type City {
+        id: ID!
+        version: GUID!
+        ibgeNumber: Int!
+        name: String!
+        state: Int!
+    }
+
+    type Query {
+        cities: [City]!
+    }
+` 
