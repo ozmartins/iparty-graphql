@@ -12,4 +12,6 @@ const typeDefs = `#graphql
     type Query {
         cities: [City]!
     }
-` 
+`;
+
+module.exports = typeDefs;

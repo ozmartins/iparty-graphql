@@ -10,3 +10,5 @@ class CityAPI extends RESTDataSource {
         this.get('city');
     }
 }
+
+module.exports = CityAPI;
