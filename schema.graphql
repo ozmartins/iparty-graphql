@@ -8,4 +8,5 @@ type City {
 
 type Query {
     cities: [City]!
+    city(id: ID!): City!
 }

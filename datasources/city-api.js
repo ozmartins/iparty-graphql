@@ -1,35 +1,39 @@
-const { RESTDataSource } = require('apollo-datasource-rest');
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
 const axios = require('axios');
 
-class CityAPI extends RESTDataSource {
-    constructor() {
-        super();
-        this.baseURL = 'http://localhost:5000/';
+class CityAPI {
+    constructor(token) {
+        this.token = token;
     }
 
-    async getAll(token) {
-        const result = await axios.get(this.baseURL + 'city', { headers: { 'Authorization': 'Bearer ' + token } });
-        return result.data;
+    url() {
+        return 'https://localhost:5001/city';
     }
 
-    async get(token, id) {
-        const result = await axios.get(this.baseURL + `city${id}`, { headers: { 'Authorization': 'Bearer ' + token } });
-        return result.data;
+    header() {
+        return { headers: { 'Authorization': this.token } }
     }
 
-    async post(token, city) {
-        const result = await axios.post(this.baseURL + 'city', city, { headers: { 'Authorization': 'Bearer ' + token } });
-        return result.data;
+    async getAll() {
+        console.log(this.url());
+        return (await axios.get(this.url(), this.header())).data;
     }
 
-    async put(token, id, city) {
-        const result = await axios.get(this.baseURL + `city${id}`, city, { headers: { 'Authorization': 'Bearer ' + token } });
-        return result.data;
+    async get(id) {
+        return (await axios.get(`${this.url()}/${id}`, this.header())).data;
     }
 
-    async delete(token, id) {
-        const result = await axios.get(this.baseURL + `city${id}`, { headers: { 'Authorization': 'Bearer ' + token } });
-        return result.data;
+    async post(city) {
+        await axios.post(this.url(), city, this.header());
+    }
+
+    async put(id, city) {
+        await axios.put(`${this.url()}/${id}`, city, this.header());
+    }
+
+    async delete(id) {
+        await axios.delete(`${this.url()}/${id}`, this.header());
     }
 }
 

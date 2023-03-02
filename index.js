@@ -15,7 +15,7 @@ const startApolloServer = async () => {
             return {
                 token,
                 dataSources: {
-                    cityAPI: new CityAPI()
+                    cityAPI: new CityAPI(token)
                 }
             }
         }
