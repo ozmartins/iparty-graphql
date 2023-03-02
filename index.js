@@ -1,25 +1,41 @@
-const { ApolloServer } = require('@apollo/server');
+const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require('@apollo/server/standalone');
 const { readFileSync } = require('fs');
 const gql = require('graphql-tag');
 const typeDefs = gql(readFileSync('./schema.graphql', { encoding: 'utf-8' }));
 const resolvers = require('./resolvers');
-
 const CityAPI = require('./datasources/city-api');
 
-const dataSources = { cityAPI: new CityAPI() }
+const startApolloServer = async () => {
+    try {
+        const server = new ApolloServer({ typeDefs, resolvers });
 
-const server = new ApolloServer({ typeDefs, resolvers, dataSources });
-
-startStandaloneServer(server, {
-    context: async () => {
-        return {
-            dataSources
+        const context = ({ req }) => {
+            const token = req.headers.authorization;
+            return {
+                token,
+                dataSources: {
+                    cityAPI: new CityAPI()
+                }
+            }
         }
-    },
-    listen: {
-        port: 4000
-    }
-});
 
-console.log('server running at http://localhost:4000');
+        const listen = {
+            port: 4000
+        }
+
+        const options = {
+            context,
+            listen
+        };
+
+
+        const { url } = await startStandaloneServer(server, options);
+
+        console.log(`server running at ${url}`);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+startApolloServer();
