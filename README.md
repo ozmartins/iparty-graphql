@@ -1,6 +1,6 @@
 ## iParty GraphQL
 
-A GraphQL API which consumer a REST API called iParty. 
+A GraphQL API which consumer a REST API called [iParty](https://github.com/ozmartins/iparty-api)
 
 ## Project Status
 
