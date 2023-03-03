@@ -15,8 +15,11 @@ class CityAPI {
         return { headers: { 'Authorization': this.token } }
     }
 
+    errorMessage(error) {
+        return error.response.data || `${error.response.status}-${error.response.statusText}`;
+    }
+
     async getAll() {
-        console.log(this.url());
         return (await axios.get(this.url(), this.header())).data;
     }
 
@@ -25,15 +28,28 @@ class CityAPI {
     }
 
     async post(city) {
-        await axios.post(this.url(), city, this.header());
+        try {
+            return (await axios.post(this.url(), city, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
     }
 
-    async put(id, city) {
-        await axios.put(`${this.url()}/${id}`, city, this.header());
+    async put(id, version, city) {
+        try {
+            return (await axios.put(`${this.url()}/${id}/${version}`, city, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
     }
 
     async delete(id) {
-        await axios.delete(`${this.url()}/${id}`, this.header());
+        try {
+            await axios.delete(`${this.url()}/${id}`, this.header());
+            return id;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
     }
 }
 

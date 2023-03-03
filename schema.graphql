@@ -1,3 +1,14 @@
+type Query {
+    cities: [City]!
+    city(id: ID!): City!
+}
+
+type Mutation {
+    createCity(input: cityInput!): City!
+    updateCity(id: ID!, version: String!, input: cityInput!): City!
+    deleteCity(id: ID!): ID!
+}
+
 type City {
     id: ID!
     version: String!
@@ -6,7 +17,8 @@ type City {
     state: Int!
 }
 
-type Query {
-    cities: [City]!
-    city(id: ID!): City!
+input cityInput {
+    ibgeNumber: Int!
+    name: String!
+    state: Int!
 }
