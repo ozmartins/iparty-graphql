@@ -1,24 +1,91 @@
 type Query {
+    #city
     cities: [City]!
-    city(id: ID!): City!
+    city(id: ID!): City
+    
+    #customer
+    customers: [Customer]!
+    customer(id: ID!): Customer
 }
 
 type Mutation {
-    createCity(input: cityInput!): City!
-    updateCity(id: ID!, version: String!, input: cityInput!): City!
-    deleteCity(id: ID!): ID!
+    #city
+    createCity(input: CityInput!): City
+    updateCity(id: ID!, version: String!, input: CityInput!): City
+    deleteCity(id: ID!): ID    
+
+    #customer
+    createCustomer(input: CustomerInput!): Customer
+    updateCustomer(id: ID!, version: String!, input: CustomerInput!): Customer
+    deleteCustomer(id: ID!): ID
 }
 
+#types related to city
 type City {
-    id: ID!
-    version: String!
-    ibgeNumber: Int!
-    name: String!
-    state: Int!
+    id: ID
+    version: String
+    ibgeNumber: Int
+    name: String
+    state: Int
 }
 
-input cityInput {
-    ibgeNumber: Int!
-    name: String!
-    state: Int!
+input CityInput {
+    ibgeNumber: Int
+    name: String
+    state: Int
+}
+
+#types related to customer
+type Customer {
+    id: ID
+    version: String
+    user: String
+    name: String
+    document: String
+    photo: String
+    addresses: [Address]
+    phones: [Phone]
+    birthDate: String
+}
+
+input CustomerInput {    
+    user: String
+    name: String
+    document: String
+    photo: String
+    addresses: [AddressInput]
+    phones: [PhoneInput]
+    birthDate: String
+}
+
+#common types related to people (customers and suppliers)
+type Address {
+    zipCode: String
+    street: String
+    number: Int
+    district: String
+    cityId: String
+}
+
+input AddressInput {
+    zipCode: String
+    street: String
+    number: Int
+    district: String
+    cityId: String
+}
+
+type Phone {
+    prefix: String
+    number: String
+}
+
+input PhoneInput {
+    prefix: String
+    number: String
+}
+
+#user
+type User {
+    id: ID    
 }

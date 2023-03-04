@@ -5,6 +5,7 @@ const gql = require('graphql-tag');
 const typeDefs = gql(readFileSync('./schema.graphql', { encoding: 'utf-8' }));
 const resolvers = require('./resolvers');
 const CityAPI = require('./datasources/city-api');
+const CustomerAPI = require('./datasources/customer-api');
 
 const startApolloServer = async () => {
     try {
@@ -15,7 +16,8 @@ const startApolloServer = async () => {
             return {
                 token,
                 dataSources: {
-                    cityAPI: new CityAPI(token)
+                    cityAPI: new CityAPI(token),
+                    customerAPI: new CustomerAPI(token)
                 }
             }
         }
@@ -28,7 +30,6 @@ const startApolloServer = async () => {
             context,
             listen
         };
-
 
         const { url } = await startStandaloneServer(server, options);
 
