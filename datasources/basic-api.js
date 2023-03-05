@@ -17,11 +17,19 @@ class BasicAPI {
     }
 
     async getAll() {
-        return (await axios.get(this.url, this.header())).data;
+        try {
+            return (await axios.get(this.url, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
     }
 
     async get(id) {
-        return (await axios.get(`${this.url}/${id}`, this.header())).data;
+        try {
+            return (await axios.get(`${this.url}/${id}`, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
     }
 
     async post(entity) {

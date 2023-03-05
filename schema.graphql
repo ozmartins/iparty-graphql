@@ -39,26 +39,20 @@ input CityInput {
 type Customer {
     id: ID
     version: String
-    user: String
+    userId: String
     name: String
-    document: String
-    photo: String
-    addresses: [Address]
-    phones: [Phone]
+    document: String    
     birthDate: String
 }
 
 input CustomerInput {    
-    user: String
+    userId: String
     name: String
-    document: String
-    photo: String
-    addresses: [AddressInput]
-    phones: [PhoneInput]
+    document: String        
     birthDate: String
 }
 
-#common types related to people (customers and suppliers)
+#addresses
 type Address {
     zipCode: String
     street: String
@@ -75,6 +69,7 @@ input AddressInput {
     cityId: String
 }
 
+#phones
 type Phone {
     prefix: String
     number: String
@@ -83,9 +78,4 @@ type Phone {
 input PhoneInput {
     prefix: String
     number: String
-}
-
-#user
-type User {
-    id: ID    
 }
