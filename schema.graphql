@@ -10,13 +10,12 @@ type Query {
 
 type Mutation {
     #city
-    createCity(input: CityInput!): City
-    updateCity(id: ID!, version: String!, input: CityInput!): City
+    createCity(input: CreateCityInput!): City
+    updateCity(input: UpdateCityInput!): City
     deleteCity(id: ID!): ID    
 
     #customer
-    createCustomer(input: CustomerInput!): Customer
-    updateCustomer(id: ID!, version: String!, input: CustomerInput!): Customer
+    createCustomer(input: CreateCustomerInput!): Customer    
     deleteCustomer(id: ID!): ID
 }
 
@@ -29,7 +28,15 @@ type City {
     state: Int
 }
 
-input CityInput {
+input CreateCityInput {
+    ibgeNumber: Int
+    name: String
+    state: Int
+}
+
+input UpdateCityInput {
+    id: ID
+    version: String
     ibgeNumber: Int
     name: String
     state: Int
@@ -39,21 +46,43 @@ input CityInput {
 type Customer {
     id: ID
     version: String
-    userId: String
     name: String
     document: String    
     birthDate: String
+    phones: [Phone]
+    addresses: [Address]
 }
 
-input CustomerInput {    
-    userId: String
+input CreateCustomerInput {        
     name: String
     document: String        
     birthDate: String
+    addresses: [CreateAddressInput]
+    phones: [CreatePhoneInput]
+}
+
+input UpdateCustomerInput {        
+    id: ID
+    version: String
+    name: String
+    document: String        
+    birthDate: String
+    addresses: [UpdateAddressInput]
+    phones: [UpdatePhoneInput]
 }
 
 #addresses
 type Address {
+    id: ID
+    version: String
+    zipCode: String
+    street: String
+    number: Int
+    district: String    
+    city: City
+}
+
+input CreateAddressInput {    
     zipCode: String
     street: String
     number: Int
@@ -61,7 +90,8 @@ type Address {
     cityId: String
 }
 
-input AddressInput {
+input UpdateAddressInput {    
+    id: ID
     zipCode: String
     street: String
     number: Int
@@ -71,11 +101,19 @@ input AddressInput {
 
 #phones
 type Phone {
+    id: ID
+    version: String
     prefix: String
     number: String
 }
 
-input PhoneInput {
+input CreatePhoneInput {
+    prefix: String
+    number: String
+}
+
+input UpdatePhoneInput {
+    id: ID
     prefix: String
     number: String
 }
