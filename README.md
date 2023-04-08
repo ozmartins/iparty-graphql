@@ -4,11 +4,11 @@ A GraphQL API which consumer a REST API called [iParty](https://github.com/ozmar
 
 ## Project Status
 
-This project is just project developed to learn more about GraphQL and Apollo.
+This is just a project developed to learn more about GraphQL and Apollo.
 
 ## Installation and Setup Instructions
 
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+Clone this repository. You will need `node` and `npm` installed globally on your machine.  
 
 Installation:
 
