@@ -32,6 +32,14 @@ class CustomerAPI extends BasicAPI {
         }
     }
 
+    async deletePhone(customerId, phoneId) {
+        try {
+            return (await axios.delete(`${this.url}/${customerId}/phone/${phoneId}`, null, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
+    }
+
     async getAddresses(customerId) {
         try {
             return (await axios.get(`${this.url}/${customerId}/address`, this.header())).data;
@@ -51,6 +59,14 @@ class CustomerAPI extends BasicAPI {
     async putAddress(customerId, addressId, address) {
         try {
             return (await axios.put(`${this.url}/${customerId}/address/${addressId}`, address, this.header())).data;
+        } catch (error) {
+            throw new Error(this.errorMessage(error));
+        }
+    }
+
+    async deleteAddress(customerId, addressId) {
+        try {
+            return (await axios.delete(`${this.url}/${customerId}/address/${addressId}`, null, this.header())).data;
         } catch (error) {
             throw new Error(this.errorMessage(error));
         }

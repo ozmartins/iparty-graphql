@@ -48,9 +48,34 @@ const resolvers = {
             }
             return customer;
         },
+        updateCustomer: async (_, { input }, { dataSources }) => {
+            const customer = await dataSources.customerAPI.put(input.id, input.version, input);
+            customer.addresses = await dataSources.customerAPI.getAddresses(input.id);
+            customer.phones = await dataSources.customerAPI.getPhones(input.id);
+            return customer;
+        },
         deleteCustomer: async (_, { id }, { dataSources }) => {
             return await dataSources.customerAPI.delete(id);
         },
+
+        //customer - address
+        createCustomerAddress: async (_, { customerId, input }, { dataSources }) => {
+            await dataSources.customerAPI.postAddress(customerId, input);
+            const customer = dataSources.customerAPI.get(customerId);
+            customer.addresses = await dataSources.customerAPI.getAddresses(input.id);
+            customer.phones = await dataSources.customerAPI.getPhones(input.id);
+            return customer;
+        },
+        updateCustomerAddress: async (_, { customerId, addressId, input }, { dataSources }) => {
+            await dataSources.customerAPI.putAddress(customerId, addressId, input);
+            const customer = dataSources.customerAPI.get(customerId);
+            customer.addresses = await dataSources.customerAPI.getAddresses(input.id);
+            customer.phones = await dataSources.customerAPI.getPhones(input.id);
+            return customer;
+        },
+        deleteCustomerAddress: async (_, { customerId, addressId }, { dataSources }) => {
+            return await dataSources.customerAPI.deleteAddress(customerId, addressId);
+        }
     },
     Customer: {
         phones: async (customer, _, { dataSources }) => {

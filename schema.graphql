@@ -15,13 +15,18 @@ type Mutation {
     deleteCity(id: ID!): ID    
 
     #customer
-    createCustomer(input: CreateCustomerInput!): Customer    
+    createCustomer(input: CreateCustomerInput!): Customer
+    updateCustomer(input: UpdateCustomerInput!): Customer
     deleteCustomer(id: ID!): ID
+
+    createCustomerAddress(customerId: ID, input: CreateAddressInput!): Customer
+    updateCustomerAddress(customerId: ID, addressId: ID, input: UpdateAddressInput!): Customer
+    deleteCustomerAddress(customerId: ID, addressId: ID, ): ID
 }
 
 #types related to city
 type City {
-    id: ID
+    id: ID!
     version: String
     ibgeNumber: Int
     name: String
@@ -35,7 +40,7 @@ input CreateCityInput {
 }
 
 input UpdateCityInput {
-    id: ID
+    id: ID!
     version: String
     ibgeNumber: Int
     name: String
@@ -44,13 +49,13 @@ input UpdateCityInput {
 
 #types related to customer
 type Customer {
-    id: ID
+    id: ID!
     version: String
     name: String
     document: String    
     birthDate: String
-    phones: [Phone]
     addresses: [Address]
+    phones: [Phone]
 }
 
 input CreateCustomerInput {        
@@ -63,13 +68,11 @@ input CreateCustomerInput {
 }
 
 input UpdateCustomerInput {        
-    id: ID
+    id: ID!
     version: String
     name: String
     document: String        
-    birthDate: String
-    addresses: [UpdateAddressInput]
-    phones: [UpdatePhoneInput]
+    birthDate: String    
 }
 
 #addresses
@@ -92,7 +95,7 @@ input CreateAddressInput {
 }
 
 input UpdateAddressInput {    
-    id: ID
+    id: ID!
     zipCode: String
     street: String
     number: Int
@@ -102,7 +105,7 @@ input UpdateAddressInput {
 
 #phones
 type Phone {
-    id: ID
+    id: ID!
     version: String
     prefix: String
     number: String
@@ -114,7 +117,7 @@ input CreatePhoneInput {
 }
 
 input UpdatePhoneInput {
-    id: ID
+    id: ID!
     prefix: String
     number: String
 }
