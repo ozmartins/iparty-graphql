@@ -40,7 +40,7 @@ class CustomerAPI extends BasicAPI {
         }
     }
 
-    async postAddresses(customerId, address) {
+    async postAddress(customerId, address) {
         try {
             return (await axios.post(`${this.url}/${customerId}/address`, address, this.header())).data;
         } catch (error) {
@@ -48,7 +48,7 @@ class CustomerAPI extends BasicAPI {
         }
     }
 
-    async putAddresses(customerId, addressId, address) {
+    async putAddress(customerId, addressId, address) {
         try {
             return (await axios.put(`${this.url}/${customerId}/address/${addressId}`, address, this.header())).data;
         } catch (error) {

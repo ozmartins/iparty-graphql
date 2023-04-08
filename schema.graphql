@@ -57,8 +57,9 @@ input CreateCustomerInput {
     name: String
     document: String        
     birthDate: String
-    addresses: [CreateAddressInput]
     phones: [CreatePhoneInput]
+    addresses: [CreateAddressInput]
+    
 }
 
 input UpdateCustomerInput {        

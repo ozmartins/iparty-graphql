@@ -30,15 +30,20 @@ const resolvers = {
 
         //customer
         createCustomer: async (_, { input }, { dataSources }) => {
+            console.log(input);
             const customer = await dataSources.customerAPI.post(input);
             if (input.addresses) {
                 input.addresses.forEach(async address => {
-                    customer.addresses.push(await dataSources.customerAPI.postAddress(address));
+                    const postedAddress = await dataSources.customerAPI.postAddress(customer.id, address)
+                    customer.addresses = [];
+                    customer.addresses.push(postedAddress);
                 });
             }
             if (input.phones) {
                 input.phones.forEach(async phone => {
-                    customer.addresses.push(await dataSources.customerAPI.postPhone(phone));
+                    const postedPhone = await dataSources.customerAPI.postPhone(customer.id, phone);
+                    customer.phones = [];
+                    customer.phones.push(postedPhone);
                 });
             }
             return customer;
